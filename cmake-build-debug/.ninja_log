@@ -1,0 +1,10 @@
+# ninja log v6
+237	975	7560660972629710	CMakeFiles/code.dir/src/RE.cpp.obj	a702f6ed7b3c74bd
+327	1083	7560660973517216	CMakeFiles/code.dir/src/Def.cpp.obj	8b63c03c10e9c3ca
+222	1125	7560660972472305	CMakeFiles/code.dir/src/syntax.cpp.obj	e2308d4ec1b13d81
+252	1165	7560660972780260	CMakeFiles/code.dir/src/parser.cpp.obj	9ff15da56580ccd7
+268	1235	7560660972930873	CMakeFiles/code.dir/src/expr.cpp.obj	54d2cd4542a2b857
+287	1260	7560660973121000	CMakeFiles/code.dir/src/value.cpp.obj	6517dbadca7849c5
+13	1265	7560660970382287	CMakeFiles/code.dir/src/main.cpp.obj	c0d2074da3f88611
+17	496	7561482315965451	CMakeFiles/code.dir/src/parser.cpp.obj	9ff15da56580ccd7
+7	1419	7562985413964193	CMakeFiles/code.dir/src/parser.cpp.obj	9ff15da56580ccd7

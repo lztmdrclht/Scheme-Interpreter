@@ -1,0 +1,50 @@
+[
+{
+  "directory": "C:/Users/ROG/Desktop/Scheme-Interpreter-main/cmake-build-debug",
+  "command": "\"D:\\CLion 2024.2.2\\bin\\mingw\\bin\\g++.exe\" -g -fdiagnostics-color=always -g -o CMakeFiles\\code.dir\\src\\main.cpp.obj -c C:\\Users\\ROG\\Desktop\\Scheme-Interpreter-main\\src\\main.cpp",
+  "file": "C:\\Users\\ROG\\Desktop\\Scheme-Interpreter-main\\src\\main.cpp",
+  "output": "CMakeFiles\\code.dir\\src\\main.cpp.obj"
+},
+{
+  "directory": "C:/Users/ROG/Desktop/Scheme-Interpreter-main/cmake-build-debug",
+  "command": "\"D:\\CLion 2024.2.2\\bin\\mingw\\bin\\g++.exe\" -g -fdiagnostics-color=always -g -o CMakeFiles\\code.dir\\src\\syntax.cpp.obj -c C:\\Users\\ROG\\Desktop\\Scheme-Interpreter-main\\src\\syntax.cpp",
+  "file": "C:\\Users\\ROG\\Desktop\\Scheme-Interpreter-main\\src\\syntax.cpp",
+  "output": "CMakeFiles\\code.dir\\src\\syntax.cpp.obj"
+},
+{
+  "directory": "C:/Users/ROG/Desktop/Scheme-Interpreter-main/cmake-build-debug",
+  "command": "\"D:\\CLion 2024.2.2\\bin\\mingw\\bin\\g++.exe\" -g -fdiagnostics-color=always -g -o CMakeFiles\\code.dir\\src\\RE.cpp.obj -c C:\\Users\\ROG\\Desktop\\Scheme-Interpreter-main\\src\\RE.cpp",
+  "file": "C:\\Users\\ROG\\Desktop\\Scheme-Interpreter-main\\src\\RE.cpp",
+  "output": "CMakeFiles\\code.dir\\src\\RE.cpp.obj"
+},
+{
+  "directory": "C:/Users/ROG/Desktop/Scheme-Interpreter-main/cmake-build-debug",
+  "command": "\"D:\\CLion 2024.2.2\\bin\\mingw\\bin\\g++.exe\" -g -fdiagnostics-color=always -g -o CMakeFiles\\code.dir\\src\\parser.cpp.obj -c C:\\Users\\ROG\\Desktop\\Scheme-Interpreter-main\\src\\parser.cpp",
+  "file": "C:\\Users\\ROG\\Desktop\\Scheme-Interpreter-main\\src\\parser.cpp",
+  "output": "CMakeFiles\\code.dir\\src\\parser.cpp.obj"
+},
+{
+  "directory": "C:/Users/ROG/Desktop/Scheme-Interpreter-main/cmake-build-debug",
+  "command": "\"D:\\CLion 2024.2.2\\bin\\mingw\\bin\\g++.exe\" -g -fdiagnostics-color=always -g -o CMakeFiles\\code.dir\\src\\expr.cpp.obj -c C:\\Users\\ROG\\Desktop\\Scheme-Interpreter-main\\src\\expr.cpp",
+  "file": "C:\\Users\\ROG\\Desktop\\Scheme-Interpreter-main\\src\\expr.cpp",
+  "output": "CMakeFiles\\code.dir\\src\\expr.cpp.obj"
+},
+{
+  "directory": "C:/Users/ROG/Desktop/Scheme-Interpreter-main/cmake-build-debug",
+  "command": "\"D:\\CLion 2024.2.2\\bin\\mingw\\bin\\g++.exe\" -g -fdiagnostics-color=always -g -o CMakeFiles\\code.dir\\src\\value.cpp.obj -c C:\\Users\\ROG\\Desktop\\Scheme-Interpreter-main\\src\\value.cpp",
+  "file": "C:\\Users\\ROG\\Desktop\\Scheme-Interpreter-main\\src\\value.cpp",
+  "output": "CMakeFiles\\code.dir\\src\\value.cpp.obj"
+},
+{
+  "directory": "C:/Users/ROG/Desktop/Scheme-Interpreter-main/cmake-build-debug",
+  "command": "\"D:\\CLion 2024.2.2\\bin\\mingw\\bin\\g++.exe\" -g -fdiagnostics-color=always -g -o CMakeFiles\\code.dir\\src\\evaluation.cpp.obj -c C:\\Users\\ROG\\Desktop\\Scheme-Interpreter-main\\src\\evaluation.cpp",
+  "file": "C:\\Users\\ROG\\Desktop\\Scheme-Interpreter-main\\src\\evaluation.cpp",
+  "output": "CMakeFiles\\code.dir\\src\\evaluation.cpp.obj"
+},
+{
+  "directory": "C:/Users/ROG/Desktop/Scheme-Interpreter-main/cmake-build-debug",
+  "command": "\"D:\\CLion 2024.2.2\\bin\\mingw\\bin\\g++.exe\" -g -fdiagnostics-color=always -g -o CMakeFiles\\code.dir\\src\\Def.cpp.obj -c C:\\Users\\ROG\\Desktop\\Scheme-Interpreter-main\\src\\Def.cpp",
+  "file": "C:\\Users\\ROG\\Desktop\\Scheme-Interpreter-main\\src\\Def.cpp",
+  "output": "CMakeFiles\\code.dir\\src\\Def.cpp.obj"
+}
+]

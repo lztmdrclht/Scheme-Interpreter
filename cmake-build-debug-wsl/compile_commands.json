@@ -1,0 +1,50 @@
+[
+{
+  "directory": "/mnt/c/Users/ROG/Desktop/Scheme-Interpreter-main/cmake-build-debug-wsl",
+  "command": "/usr/bin/c++   -g -fdiagnostics-color=always -g -o CMakeFiles/code.dir/src/main.cpp.o -c /mnt/c/Users/ROG/Desktop/Scheme-Interpreter-main/src/main.cpp",
+  "file": "/mnt/c/Users/ROG/Desktop/Scheme-Interpreter-main/src/main.cpp",
+  "output": "CMakeFiles/code.dir/src/main.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/ROG/Desktop/Scheme-Interpreter-main/cmake-build-debug-wsl",
+  "command": "/usr/bin/c++   -g -fdiagnostics-color=always -g -o CMakeFiles/code.dir/src/syntax.cpp.o -c /mnt/c/Users/ROG/Desktop/Scheme-Interpreter-main/src/syntax.cpp",
+  "file": "/mnt/c/Users/ROG/Desktop/Scheme-Interpreter-main/src/syntax.cpp",
+  "output": "CMakeFiles/code.dir/src/syntax.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/ROG/Desktop/Scheme-Interpreter-main/cmake-build-debug-wsl",
+  "command": "/usr/bin/c++   -g -fdiagnostics-color=always -g -o CMakeFiles/code.dir/src/RE.cpp.o -c /mnt/c/Users/ROG/Desktop/Scheme-Interpreter-main/src/RE.cpp",
+  "file": "/mnt/c/Users/ROG/Desktop/Scheme-Interpreter-main/src/RE.cpp",
+  "output": "CMakeFiles/code.dir/src/RE.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/ROG/Desktop/Scheme-Interpreter-main/cmake-build-debug-wsl",
+  "command": "/usr/bin/c++   -g -fdiagnostics-color=always -g -o CMakeFiles/code.dir/src/parser.cpp.o -c /mnt/c/Users/ROG/Desktop/Scheme-Interpreter-main/src/parser.cpp",
+  "file": "/mnt/c/Users/ROG/Desktop/Scheme-Interpreter-main/src/parser.cpp",
+  "output": "CMakeFiles/code.dir/src/parser.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/ROG/Desktop/Scheme-Interpreter-main/cmake-build-debug-wsl",
+  "command": "/usr/bin/c++   -g -fdiagnostics-color=always -g -o CMakeFiles/code.dir/src/expr.cpp.o -c /mnt/c/Users/ROG/Desktop/Scheme-Interpreter-main/src/expr.cpp",
+  "file": "/mnt/c/Users/ROG/Desktop/Scheme-Interpreter-main/src/expr.cpp",
+  "output": "CMakeFiles/code.dir/src/expr.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/ROG/Desktop/Scheme-Interpreter-main/cmake-build-debug-wsl",
+  "command": "/usr/bin/c++   -g -fdiagnostics-color=always -g -o CMakeFiles/code.dir/src/value.cpp.o -c /mnt/c/Users/ROG/Desktop/Scheme-Interpreter-main/src/value.cpp",
+  "file": "/mnt/c/Users/ROG/Desktop/Scheme-Interpreter-main/src/value.cpp",
+  "output": "CMakeFiles/code.dir/src/value.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/ROG/Desktop/Scheme-Interpreter-main/cmake-build-debug-wsl",
+  "command": "/usr/bin/c++   -g -fdiagnostics-color=always -g -o CMakeFiles/code.dir/src/evaluation.cpp.o -c /mnt/c/Users/ROG/Desktop/Scheme-Interpreter-main/src/evaluation.cpp",
+  "file": "/mnt/c/Users/ROG/Desktop/Scheme-Interpreter-main/src/evaluation.cpp",
+  "output": "CMakeFiles/code.dir/src/evaluation.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/ROG/Desktop/Scheme-Interpreter-main/cmake-build-debug-wsl",
+  "command": "/usr/bin/c++   -g -fdiagnostics-color=always -g -o CMakeFiles/code.dir/src/Def.cpp.o -c /mnt/c/Users/ROG/Desktop/Scheme-Interpreter-main/src/Def.cpp",
+  "file": "/mnt/c/Users/ROG/Desktop/Scheme-Interpreter-main/src/Def.cpp",
+  "output": "CMakeFiles/code.dir/src/Def.cpp.o"
+}
+]
