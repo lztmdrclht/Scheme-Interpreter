@@ -75,8 +75,8 @@ void Terminate::show(std::ostream &os) {
 
 void Pair::show(std::ostream &os) {
   os << '(' << car;
-  if(partition_dot)
-    os << " .";
+  // if(car->v_type != V_NULL)
+  //   os << " .";
   cdr->showCdr(os);
 }
 

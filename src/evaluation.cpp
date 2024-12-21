@@ -37,15 +37,15 @@ Value Apply::eval(Assoc &e) {
 } // for function calling
 
 Value Letrec::eval(Assoc &env) {
-    Assoc new_env1 = env;
-    for (auto elem:bind) {
-        new_env1 = extend(elem.first, Value(nullptr), new_env1);
-    }
-    Assoc new_env2 = env;
-    for (auto elem:bind) {
-        new_env2 = extend(elem.first, elem.second->eval(new_env1), new_env2);
-    }
-    return body->eval(new_env2);
+    std::vector <Value> values;
+    Assoc new_env = env;
+    for(int i = 0; i < bind.size(); i++)
+        new_env = extend(bind[i].first, Value(NULL),new_env);
+    for(int i = 0; i < bind.size(); i++)
+        values.push_back(bind[i].second->eval(new_env));
+    for(int i = 0; i < bind.size(); i++)
+        modify(bind[i].first, values[i],new_env);
+    return body->eval(new_env);
 } // letrec expression
 
 
