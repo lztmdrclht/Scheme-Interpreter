@@ -39,20 +39,28 @@ Expr FalseSyntax :: parse(Assoc &env) {
     return Expr(new False());
 }
 
+//存在的问题，爆栈，作用域过大
+
 Expr List :: parse(Assoc &env) {
     if(dynamic_cast<Identifier*>(stxs[0].get()) == nullptr && dynamic_cast<List*>(stxs[0].get()) == nullptr)
         throw(RuntimeError("syntax error"));
-    
-    if(dynamic_cast<List*>(stxs[0].get()) != nullptr) {
-        //Expr expr*
-        Expr expr_clos = stxs[0]->parse(env);
-        vector<Expr> expr_para;
-        for(int i = 1; i < stxs.size(); i++)
-            expr_para.push_back(stxs[i]->parse(env));
-        return Expr(new Apply(expr_clos, expr_para));
-    }
 
-    std::string temp_s = dynamic_cast<Identifier*>(stxs[0].get())->s;
+    if(dynamic_cast<List*>(stxs[0].get()) != nullptr) {
+        Expr result = stxs[0]->parse(env);
+        if(dynamic_cast<Closure *> (result->eval(env).get()) != nullptr) {
+            vector<Expr> expr_para;
+            for(int i = 1; i < stxs.size(); i++)
+                expr_para.push_back(stxs[i]->parse(env));
+            return Expr(new Apply(result, expr_para));
+        }
+        //?
+        // result->eval(env)->show(std::cout);
+        if(dynamic_cast<Symbol *> (result->eval(env).get()) == nullptr)
+            throw(RuntimeError("syntax1 error"));
+    }
+    std::string temp_s = dynamic_cast<Var*>(stxs[0].parse(env).get())->x;
+    // std::string temp_s = dynamic_cast<Symbol*>(stxs[0].parse(env)->eval(env).get())->s;
+    // std::cout << temp_s << std::endl;
     if(find(temp_s, env).get() != nullptr) {
         vector<Expr> expr_para;
         for(int i = 1; i < stxs.size(); i++)
@@ -152,7 +160,6 @@ Expr List :: parse(Assoc &env) {
         if(reserved_words[temp_s] == E_LET) {
             if(stxs.size() != 3)
                 throw(RuntimeError("wrong parameter number"));
-
             vector<std::pair<std::string, Expr>> binded_var;
             List* var_list = dynamic_cast<List*>(stxs[1].get());
             if(var_list == nullptr)

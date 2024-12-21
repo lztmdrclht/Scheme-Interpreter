@@ -75,6 +75,8 @@ void Terminate::show(std::ostream &os) {
 
 void Pair::show(std::ostream &os) {
   os << '(' << car;
+  if(partition_dot)
+    os << " .";
   cdr->showCdr(os);
 }
 
@@ -124,7 +126,7 @@ Value TerminateV() {
   return Value(new Terminate());
 }
 
-Pair::Pair(const Value &car, const Value &cdr) : ValueBase(V_PAIR), car(car), cdr(cdr) {}
+Pair::Pair(const Value &car, const Value &cdr, bool part) : ValueBase(V_PAIR), car(car), cdr(cdr), partition_dot(part) {}
 Value PairV(const Value &car, const Value &cdr) {
   return Value(new Pair(car, cdr));
 }

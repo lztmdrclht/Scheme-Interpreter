@@ -185,5 +185,4 @@ CMakeFiles/code.dir/src/evaluation.cpp.o: \
  /usr/include/c++/13/backward/auto_ptr.h \
  /usr/include/c++/13/pstl/glue_memory_defs.h \
  /usr/include/c++/13/pstl/execution_defs.h \
- /mnt/c/Users/ROG/Desktop/Scheme-Interpreter-main/src/RE.hpp \
- /usr/include/c++/13/bits/fs_dir.h
+ /mnt/c/Users/ROG/Desktop/Scheme-Interpreter-main/src/RE.hpp

@@ -83,7 +83,8 @@ Value TerminateV();
 struct Pair : ValueBase {
   Value car;
   Value cdr;
-  Pair(const Value &, const Value &);
+  bool partition_dot;
+  Pair(const Value &, const Value &, bool = false);
   virtual void show(std::ostream &) override;
   virtual void showCdr(std::ostream &) override;
 };

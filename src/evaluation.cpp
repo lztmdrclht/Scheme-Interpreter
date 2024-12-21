@@ -48,11 +48,20 @@ Value Letrec::eval(Assoc &env) {
     return body->eval(new_env2);
 } // letrec expression
 
+
+
+//初始化，加减乘加入var
 Value Var::eval(Assoc &e) {
     Value target_value = find(x, e);
+    // std::cout << x << std::endl;
+    if(target_value.get() != nullptr)
+        return target_value;
+    // if(x == "+" || x == "-" || x == "*") {
+    //     Value temp = new Symbol(x);
+    //     return temp;
+    // }
     if(target_value.get() == nullptr)
         throw(RuntimeError("undefined variable"));
-    return target_value;
 } // evaluation of variable
 
 Value Fixnum::eval(Assoc &e) {
@@ -60,8 +69,13 @@ Value Fixnum::eval(Assoc &e) {
 } // evaluation of a fixnum
 
 Value If::eval(Assoc &e) {
-    if(dynamic_cast<Boolean*>(cond->eval(e).get())->b) return conseq->eval(e);
-    return alter->eval(e);
+    Expr temp = new Not(cond);
+    if(dynamic_cast<Boolean*> (temp->eval(e).get())->b)
+        return alter->eval(e);
+    // if(dynamic_cast<Boolean*>(cond->eval(e).get()) == nullptr)
+    //     throw(RuntimeError("Not a Boolean"));
+    // if(dynamic_cast<Boolean*>(cond->eval(e).get())->b)
+        return conseq->eval(e);
 } // if expression
 
 Value True::eval(Assoc &e) {
@@ -79,6 +93,8 @@ Value Begin::eval(Assoc &e) {
     return es[es.size() - 1]->eval( e);
 } // begin expression
 
+
+
 Value Quote::eval(Assoc &e) {
     if(dynamic_cast<TrueSyntax *>(s.get()) != nullptr)
         return BooleanV(true);
@@ -88,12 +104,25 @@ Value Quote::eval(Assoc &e) {
         return IntegerV(dynamic_cast<Number *>(s.get())->n);
     if(dynamic_cast<Identifier *>(s.get()) != nullptr)
         return SymbolV(dynamic_cast<Identifier*>(s.get())->s);
-    if(dynamic_cast<List *>(s.get()) != nullptr){
+    if(dynamic_cast<List *>(s.get()) != nullptr) {
         std::vector<Syntax> copy_stxs = dynamic_cast<List*>(s.get())->stxs;
-        if(copy_stxs.size() == 0) return NullV();
-        Value temp_pair = Value(new Pair(copy_stxs[copy_stxs.size() - 1]->parse(e)->eval(e), NullV()));
-        for(int i = copy_stxs.size() - 2; i >= 0; i--)
-            temp_pair = Value(new Pair(copy_stxs[i]->parse(e)->eval(e), temp_pair));
+        if(copy_stxs.size() == 0)
+            return NullV();
+        // Value temp_pair = Value(new Pair(copy_stxs[copy_stxs.size() - 1]->parse(e)->eval(e), NullV()));
+        Expr temp_expr(new Quote(copy_stxs[copy_stxs.size() - 1]));
+        Value temp_pair = Value(new Pair(temp_expr->eval(e), NullV()));
+        for(int i = copy_stxs.size() - 2; i >= 0; i--) {
+            if(i == copy_stxs.size() - 2 && dynamic_cast<Identifier*>(copy_stxs[i].get()) != nullptr) {
+                if(dynamic_cast<Identifier*>(copy_stxs[i].get())->s == ".") {
+                    temp_expr.ptr = new Quote(copy_stxs[i - 1]);
+                    temp_pair = Value(new Pair(temp_expr->eval(e), Quote(copy_stxs[copy_stxs.size() - 1]).eval(e), true));
+                    i --;
+                    continue;
+                }
+            }
+            temp_expr.ptr = new Quote(copy_stxs[i]);
+            temp_pair = Value(new Pair(temp_expr->eval(e), temp_pair));
+        }
         return temp_pair;
     }
 } // quote expression
@@ -144,7 +173,11 @@ Value LessEq::evalRator(const Value &rand1, const Value &rand2) {
     return BooleanV((dynamic_cast<Integer*>(rand1.get())->n) <= (dynamic_cast<Integer*>(rand2.get())->n));
 } // <=
 
-Value Equal::evalRator(const Value &rand1, const Value &rand2) {} // =
+Value Equal::evalRator(const Value &rand1, const Value &rand2) {
+    if(rand1.get()->v_type != V_INT || rand2.get()->v_type != V_INT)
+        throw RuntimeError("wrong type");
+    return BooleanV((dynamic_cast<Integer*>(rand1.get())->n) == (dynamic_cast<Integer*>(rand2.get())->n));
+} // =
 
 Value GreaterEq::evalRator(const Value &rand1, const Value &rand2) {
     if(rand1.get()->v_type != V_INT || rand2.get()->v_type != V_INT)
@@ -201,16 +234,22 @@ Value IsProcedure::evalRator(const Value &rand) {
 } // procedure?
 
 Value Not::evalRator(const Value &rand) {
-    if(rand.get()->v_type == V_BOOL && (dynamic_cast<Boolean*>(rand.get())->b) == false) return BooleanV(true);
+    if(rand.get()->v_type == V_BOOL && (dynamic_cast<Boolean*>(rand.get())->b) == false)
+        return BooleanV(true);
     return BooleanV(false);
 } // not
 
 Value Car::evalRator(const Value &rand) {
-    if(rand.get()->v_type != V_PAIR) throw RuntimeError("wrong type");
+    if(rand.get()->v_type != V_PAIR)
+        throw RuntimeError("wrong type");
     return (dynamic_cast<Pair*>(rand.get())->car);
 } // car
 
 Value Cdr::evalRator(const Value &rand) {
-    if(rand.get()->v_type != V_PAIR) throw RuntimeError("wrong type");
+    if(rand.get()->v_type != V_PAIR)
+        throw RuntimeError("wrong type");
     return (dynamic_cast<Pair*>(rand.get())->cdr);
 } // cdr
+
+//cd C:\Users\ROG\Desktop\Scheme-Interpreter-Main
+//cd mnt/c/Users/ROG/Desktop/Scheme-Interpreter-Main/score
