@@ -24,18 +24,17 @@ Value Lambda::eval(Assoc &env) {
 } // lambda expression
 
 Value Apply::eval(Assoc &e) {
-    Closure* temp_clo = dynamic_cast<Closure*>(rator->eval(e).get());
-    if(temp_clo == nullptr)
-        throw(RuntimeError("Not a Closure"));
-    if (temp_clo->parameters.size() != rand.size())
-        throw RuntimeError("Wrong number of parameters");
+    Value _rator = rator.get()->eval(e);
+    auto temp_clos = dynamic_cast<Closure *>(_rator.get());
+    if(temp_clos == nullptr || temp_clos->parameters.size() != rand.size())
+        throw RuntimeError("Wrong Apply");
 
-    Assoc new_env = temp_clo->env;
-    std::vector< std::pair<std::string, Value> > tobind;
-    for(int i = 0; i < temp_clo->parameters.size(); i++) {
-        new_env = extend(temp_clo->parameters[i], rand[i]->eval(e), new_env);
+    Assoc new_env = temp_clos->env;
+    for (size_t i = 0; i < temp_clos->parameters.size(); ++i) {
+        new_env =extend(temp_clos->parameters[i], rand[i].get()->eval(e), new_env);
     }
-    return (temp_clo->e)->eval(new_env);
+    return temp_clos->e.get()->eval(new_env);
+
 } // for function calling
 
 Value Letrec::eval(Assoc &env) {
@@ -67,17 +66,11 @@ Value Fixnum::eval(Assoc &e) {
 } // evaluation of a fixnum
 
 Value If::eval(Assoc &e) {
-    Boolean * temp_bool = dynamic_cast<Boolean *>(cond->eval(e).get());
-    if (temp_bool != nullptr && temp_bool->b == false)
-        return alter->eval(e);
-    return conseq->eval(e);
-    // Expr temp = new Not(cond);
-    // if(dynamic_cast<Boolean*> (temp->eval(e).get())->b)
-    //     return alter->eval(e);
-    // // if(dynamic_cast<Boolean*>(cond->eval(e).get()) == nullptr)
-    // //     throw(RuntimeError("Not a Boolean"));
-    // // if(dynamic_cast<Boolean*>(cond->eval(e).get())->b)
-    //     return conseq->eval(e);
+    Value temp = cond.get()->eval(e);
+    auto temp_bool = dynamic_cast<Boolean *>(temp.get());
+    if (temp_bool && temp_bool->b == false)
+        return alter.get()->eval(e);
+    return conseq.get()->eval(e);
 } // if expression
 
 Value True::eval(Assoc &e) {
@@ -214,27 +207,27 @@ Value Cons::evalRator(const Value &rand1, const Value &rand2) {
 } // cons
 
 Value IsBoolean::evalRator(const Value &rand) {
-    return Value(new Boolean((*rand.ptr).v_type == V_BOOL));
+    return BooleanV(dynamic_cast<Boolean *>(rand.get()) != nullptr);
 } // boolean?
 
 Value IsFixnum::evalRator(const Value &rand) {
-    return Value(new Boolean((*rand.ptr).v_type == V_INT));
+    return BooleanV(dynamic_cast<Integer *>(rand.get()) != nullptr);
 } // fixnum?
 
 Value IsSymbol::evalRator(const Value &rand) {
-    return Value(new Boolean((*rand.ptr).v_type == V_SYM));
+    return BooleanV(dynamic_cast<Symbol *>(rand.get()) != nullptr);
 } // symbol?
 
 Value IsNull::evalRator(const Value &rand) {
-    return Value(new Boolean((*rand.ptr).v_type == V_NULL));
+    return BooleanV(dynamic_cast<Null *>(rand.get()) != nullptr);
 } // null?
 
 Value IsPair::evalRator(const Value &rand) {
-    return Value(new Boolean((*rand.ptr).v_type == V_PAIR));
+    return BooleanV(dynamic_cast<Pair *>(rand.get()) != nullptr);
 } // pair?
 
 Value IsProcedure::evalRator(const Value &rand) {
-    return Value(new Boolean((*rand.ptr).v_type == V_PROC));
+    return BooleanV(dynamic_cast<Closure *>(rand.get()) != nullptr);
 } // procedure?
 
 Value Not::evalRator(const Value &rand) {

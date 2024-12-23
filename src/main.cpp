@@ -18,12 +18,6 @@ void REPL()
     while (1)
     {
         Assoc global_env = empty();
-        std::vector<std::string> x;
-        x.push_back("x");
-        x.push_back("y");
-        global_env = extend("+", new Closure(x, new Plus(new Var("x"), new Var("y")), global_env), global_env);
-        global_env = extend("-", new Closure(x, new Minus(new Var("x"), new Var("y")), global_env), global_env);
-        global_env = extend("*", new Closure(x, new Mult(new Var("x"), new Var("y")), global_env), global_env);
 
         #ifndef ONLINE_JUDGE
             std::cout << "scm> ";

@@ -14,6 +14,7 @@ Assoc empty() {
 
 Assoc extend(const std::string &x, const Value &v, Assoc &lst)
 {
+    // std::cout << x << " fine" << std::endl;
     return Assoc(new AssocList(x, v, lst));
 }
 
