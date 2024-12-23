@@ -119,6 +119,7 @@ Value Quote::eval(Assoc &e) {
             temp_pair = PairV((Expr(new Quote(copy_stxs[i]))).get()->eval(e), temp_pair);
         return temp_pair;
     }
+    return NullV();
 } // quote expression
 
 Value MakeVoid::eval(Assoc &e) {
@@ -139,58 +140,58 @@ Value Unary::eval(Assoc &e) {
 
 Value Mult::evalRator(const Value &rand1, const Value &rand2) {
     if(rand1.get()->v_type != V_INT || rand2.get()->v_type != V_INT)
-        throw RuntimeError("wrong type");
+        throw RuntimeError("wrong type1");
     return Value(new Integer((dynamic_cast<Integer*>(rand1.get())->n) * (dynamic_cast<Integer*>(rand2.get())->n)));
 } // *
 
 Value Plus::evalRator(const Value &rand1, const Value &rand2) {
     if(rand1.get()->v_type != V_INT || rand2.get()->v_type != V_INT)
-        throw RuntimeError("wrong type");
+        throw RuntimeError("wrong type2");
     return Value(new Integer((dynamic_cast<Integer*>(rand1.get())->n) + (dynamic_cast<Integer*>(rand2.get())->n)));
 } // +
 
 Value Minus::evalRator(const Value &rand1, const Value &rand2) {
     if(rand1.get()->v_type != V_INT || rand2.get()->v_type != V_INT)
-        throw RuntimeError("wrong type");
+        throw RuntimeError("wrong type3");
     return Value(new Integer((dynamic_cast<Integer*>(rand1.get())->n) - (dynamic_cast<Integer*>(rand2.get())->n)));
 } // -
 
 Value Less::evalRator(const Value &rand1, const Value &rand2) {
     if(rand1.get()->v_type != V_INT || rand2.get()->v_type != V_INT)
-        throw RuntimeError("wrong type");
+        throw RuntimeError("wrong type4");
     return BooleanV((dynamic_cast<Integer*>(rand1.get())->n) < (dynamic_cast<Integer*>(rand2.get())->n));
 } // <
 
 Value LessEq::evalRator(const Value &rand1, const Value &rand2) {
     if(rand1.get()->v_type != V_INT || rand2.get()->v_type != V_INT)
-        throw RuntimeError("wrong type");
+        throw RuntimeError("wrong type5");
     return BooleanV((dynamic_cast<Integer*>(rand1.get())->n) <= (dynamic_cast<Integer*>(rand2.get())->n));
 } // <=
 
 Value Equal::evalRator(const Value &rand1, const Value &rand2) {
     if(rand1.get()->v_type != V_INT || rand2.get()->v_type != V_INT)
-        throw RuntimeError("wrong type");
+        throw RuntimeError("wrong type6");
     return BooleanV((dynamic_cast<Integer*>(rand1.get())->n) == (dynamic_cast<Integer*>(rand2.get())->n));
 } // =
 
 Value GreaterEq::evalRator(const Value &rand1, const Value &rand2) {
     if(rand1.get()->v_type != V_INT || rand2.get()->v_type != V_INT)
-        throw RuntimeError("wrong type");
+        throw RuntimeError("wrong type7");
     return BooleanV((dynamic_cast<Integer*>(rand1.get())->n) >= (dynamic_cast<Integer*>(rand2.get())->n));
 } // >=
 
 Value Greater::evalRator(const Value &rand1, const Value &rand2) {
     if(rand1.get()->v_type != V_INT || rand2.get()->v_type != V_INT)
-        throw RuntimeError("wrong type");
+        throw RuntimeError("wrong type8");
     return BooleanV((dynamic_cast<Integer*>(rand1.get())->n) > (dynamic_cast<Integer*>(rand2.get())->n));
 } // >
-
+//
 Value IsEq::evalRator(const Value &rand1, const Value &rand2) {
     if(rand1 -> v_type == V_INT && rand2 -> v_type == V_INT)
         return BooleanV((dynamic_cast<Integer*>(rand1.get())->n) == (dynamic_cast<Integer*>(rand2.get())->n));
     if(rand1->v_type==V_BOOL and rand2->v_type==V_BOOL)
         return BooleanV((dynamic_cast<Boolean*>(rand1.get())->b) == (dynamic_cast<Boolean*>(rand2.get())->b));
-    if(rand1->v_type == V_BOOL && rand2->v_type == V_BOOL)
+    if(rand1->v_type == V_SYM && rand2->v_type == V_SYM)
         return BooleanV((dynamic_cast<Symbol*>(rand1.get())->s) == (dynamic_cast<Symbol*>(rand2.get())->s));
     if(rand1->v_type == V_NULL && rand2->v_type == V_NULL)
         return BooleanV(true);
@@ -234,14 +235,18 @@ Value Not::evalRator(const Value &rand) {
 } // not
 
 Value Car::evalRator(const Value &rand) {
+    // if(rand.get()->v_type == V_NULL)
+    //     return NullV();
+    // std::cout << rand.get()->v_type << std::endl;
+    // rand.get()->show(std::cout);
     if(rand.get()->v_type != V_PAIR)
-        throw RuntimeError("wrong type");
+        throw RuntimeError("wrong type9");
     return (dynamic_cast<Pair*>(rand.get())->car);
 } // car
 
 Value Cdr::evalRator(const Value &rand) {
     if(rand.get()->v_type != V_PAIR)
-        throw RuntimeError("wrong type");
+        throw RuntimeError("wrong type0");
     return (dynamic_cast<Pair*>(rand.get())->cdr);
 } // cdr
 
