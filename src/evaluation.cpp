@@ -105,21 +105,18 @@ Value Quote::eval(Assoc &e) {
         std::vector<Syntax> copy_stxs = dynamic_cast<List*>(s.get())->stxs;
         if(copy_stxs.size() == 0)
             return NullV();
-        // Value temp_pair = Value(new Pair(copy_stxs[copy_stxs.size() - 1]->parse(e)->eval(e), NullV()));
-        Expr temp_expr(new Quote(copy_stxs[copy_stxs.size() - 1]));
-        Value temp_pair = Value(new Pair(temp_expr->eval(e), NullV()));
-        for(int i = copy_stxs.size() - 2; i >= 0; i--) {
-            if(i == copy_stxs.size() - 2 && dynamic_cast<Identifier*>(copy_stxs[i].get()) != nullptr) {
-                if(dynamic_cast<Identifier*>(copy_stxs[i].get())->s == ".") {
-                    temp_expr.ptr = new Quote(copy_stxs[i - 1]);
-                    temp_pair = Value(new Pair(temp_expr->eval(e), Quote(copy_stxs[copy_stxs.size() - 1]).eval(e), true));
-                    i --;
-                    continue;
-                }
+        if (copy_stxs.size() >= 3) {
+            auto partition_dot = dynamic_cast<Identifier *>(copy_stxs[copy_stxs.size() - 2].get());
+            if (partition_dot && partition_dot->s == ".") {
+                Value temp_pair = Expr(new Quote(copy_stxs[copy_stxs.size() - 1])).get()->eval(e);
+                for (int i = copy_stxs.size() - 3; i >= 0; --i)
+                    temp_pair = PairV((Expr(new Quote(copy_stxs[i]))).get()->eval(e), temp_pair);
+                return temp_pair;
             }
-            temp_expr.ptr = new Quote(copy_stxs[i]);
-            temp_pair = Value(new Pair(temp_expr->eval(e), temp_pair));
         }
+        Value temp_pair = NullV();
+        for (int i = copy_stxs.size() - 1; i >= 0; --i)
+            temp_pair = PairV((Expr(new Quote(copy_stxs[i]))).get()->eval(e), temp_pair);
         return temp_pair;
     }
 } // quote expression

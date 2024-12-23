@@ -103,16 +103,15 @@ Expr List :: parse(Assoc &env) {
     if (stxs.empty())
         return Expr(new MakeVoid());
 
-    if(dynamic_cast<Identifier*>(stxs[0].get()) == nullptr) {
-        Expr result = stxs[0]->parse(env);
-        vector<Expr> expr_para;
-        for(int i = 1; i < stxs.size(); i++)
-            expr_para.push_back(stxs[i]->parse(env));
-        return Expr(new Apply(result, expr_para));
-    }
+    // if(dynamic_cast<Identifier*>(stxs[0].get()) == nullptr) {
+    //     Expr result = stxs[0]->parse(env);
+    //     vector<Expr> expr_para;
+    //     for(int i = 1; i < stxs.size(); i++)
+    //         expr_para.push_back(stxs[i]->parse(env));
+    //     return Expr(new Apply(result, expr_para));
+    // }
 
-
-    // if(dynamic_cast<Identifier *>(stxs[0].get()) != nullptr) {
+    if(dynamic_cast<Identifier *>(stxs[0].get()) != nullptr) {
         std::string temp_s = dynamic_cast<Identifier *>(stxs[0].get())->s;
         if(find(temp_s, env).get() != nullptr) {
             vector<Expr> expr_para;
@@ -297,7 +296,7 @@ Expr List :: parse(Assoc &env) {
                 return Expr(new Letrec(binded_var, stxs[2]->parse(new_env)));
             }
         }
-    // }
+    }
 
     // if(dynamic_cast<List*>(stxs[0].get()) != nullptr) {
         Expr result = stxs[0]->parse(env);
