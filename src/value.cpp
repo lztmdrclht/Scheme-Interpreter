@@ -136,3 +136,10 @@ Closure::Closure(const std::vector<std::string> &xs, const Expr &e, const Assoc 
 Value ClosureV(const std::vector<std::string> &xs, const Expr &e, const Assoc &env) {
   return Value(new Closure(xs, e, env));
 }
+
+
+void Expression::show(std::ostream &os) {}
+Expression::Expression(const Expr &e) : ValueBase(V_EXPRESSION), e(e) {}
+Value ExpressionV(const Expr &e) {
+  return Value(new Expression(e));
+}

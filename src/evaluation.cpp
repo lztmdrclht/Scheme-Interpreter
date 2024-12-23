@@ -20,14 +20,16 @@ Value Let::eval(Assoc &env) {
 } // let expression
 
 Value Lambda::eval(Assoc &env) {
-    return Value(new Closure(x, e, env));
+    return ClosureV(x, e, env);
 } // lambda expression
 
 Value Apply::eval(Assoc &e) {
     Closure* temp_clo = dynamic_cast<Closure*>(rator->eval(e).get());
-    if(temp_clo == nullptr) {
+    if(temp_clo == nullptr)
         throw(RuntimeError("Not a Closure"));
-    }
+    if (temp_clo->parameters.size() != rand.size())
+        throw RuntimeError("Wrong number of parameters");
+
     Assoc new_env = temp_clo->env;
     std::vector< std::pair<std::string, Value> > tobind;
     for(int i = 0; i < temp_clo->parameters.size(); i++) {
@@ -40,42 +42,42 @@ Value Letrec::eval(Assoc &env) {
     std::vector <Value> values;
     Assoc new_env = env;
     for(int i = 0; i < bind.size(); i++)
-        new_env = extend(bind[i].first, Value(NULL),new_env);
-    for(int i = 0; i < bind.size(); i++)
+        new_env = extend(bind[i].first, NullV(),new_env);
+    for(int i = 0; i < bind.size(); i++) {
+        if(bind[i].second->eval(new_env)->v_type == V_NULL)
+            throw(RuntimeError("Null Variable"));
         values.push_back(bind[i].second->eval(new_env));
+    }
     for(int i = 0; i < bind.size(); i++)
         modify(bind[i].first, values[i],new_env);
     return body->eval(new_env);
 } // letrec expression
 
 
-
-//初始化，加减乘加入var
 Value Var::eval(Assoc &e) {
     Value target_value = find(x, e);
     // std::cout << x << std::endl;
     if(target_value.get() != nullptr)
         return target_value;
-    // if(x == "+" || x == "-" || x == "*") {
-    //     Value temp = new Symbol(x);
-    //     return temp;
-    // }
-    if(target_value.get() == nullptr)
-        throw(RuntimeError("undefined variable"));
+    throw(RuntimeError("undefined variable"));
 } // evaluation of variable
 
 Value Fixnum::eval(Assoc &e) {
-    return Value(new Integer(n));
+    return IntegerV(n);
 } // evaluation of a fixnum
 
 Value If::eval(Assoc &e) {
-    Expr temp = new Not(cond);
-    if(dynamic_cast<Boolean*> (temp->eval(e).get())->b)
+    Boolean * temp_bool = dynamic_cast<Boolean *>(cond->eval(e).get());
+    if (temp_bool != nullptr && temp_bool->b == false)
         return alter->eval(e);
-    // if(dynamic_cast<Boolean*>(cond->eval(e).get()) == nullptr)
-    //     throw(RuntimeError("Not a Boolean"));
-    // if(dynamic_cast<Boolean*>(cond->eval(e).get())->b)
-        return conseq->eval(e);
+    return conseq->eval(e);
+    // Expr temp = new Not(cond);
+    // if(dynamic_cast<Boolean*> (temp->eval(e).get())->b)
+    //     return alter->eval(e);
+    // // if(dynamic_cast<Boolean*>(cond->eval(e).get()) == nullptr)
+    // //     throw(RuntimeError("Not a Boolean"));
+    // // if(dynamic_cast<Boolean*>(cond->eval(e).get())->b)
+    //     return conseq->eval(e);
 } // if expression
 
 Value True::eval(Assoc &e) {
@@ -87,6 +89,8 @@ Value False::eval(Assoc &e) {
 } // evaluation of #f
 
 Value Begin::eval(Assoc &e) {
+    if(es.size() == 0)
+        return NullV();
     for(int i = 0; i < es.size() - 1; i++) {
         es[i]->eval(e);
     }
@@ -128,11 +132,11 @@ Value Quote::eval(Assoc &e) {
 } // quote expression
 
 Value MakeVoid::eval(Assoc &e) {
-    return Value(new Void());
+    return VoidV();
 } // (void)
 
 Value Exit::eval(Assoc &e) {
-    return Value(new Terminate());
+    return TerminateV();
 } // (exit)
 
 Value Binary::eval(Assoc &e) {
@@ -206,7 +210,7 @@ Value IsEq::evalRator(const Value &rand1, const Value &rand2) {
 } // eq?
 
 Value Cons::evalRator(const Value &rand1, const Value &rand2) {
-    return Value(new Pair(rand1, rand2));
+    return PairV(rand1, rand2);
 } // cons
 
 Value IsBoolean::evalRator(const Value &rand) {
@@ -251,5 +255,5 @@ Value Cdr::evalRator(const Value &rand) {
     return (dynamic_cast<Pair*>(rand.get())->cdr);
 } // cdr
 
-//cd C:\Users\ROG\Desktop\Scheme-Interpreter-Main
-//cd mnt/c/Users/ROG/Desktop/Scheme-Interpreter-Main/score
+// // //cd C:\Users\ROG\Desktop\Scheme-Interpreter-Main
+// // //cd mnt/c/Users/ROG/Desktop/Scheme-Interpreter-Main/score

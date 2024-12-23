@@ -26,7 +26,7 @@ enum ExprType
 };
 enum ValueType
 {
-    V_INT, V_BOOL, V_SYM, V_NULL, V_STRING,
+    V_EXPRESSION, V_INT, V_BOOL, V_SYM, V_NULL, V_STRING,
     V_PAIR, V_PROC, V_VOID, V_PRIMITIVE,
     V_TERMINATE
 };

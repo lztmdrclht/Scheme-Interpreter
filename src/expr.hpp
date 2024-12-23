@@ -34,7 +34,9 @@ struct Let : ExprBase {
 struct Lambda : ExprBase {
     std::vector<std::string> x;
     Expr e;
+    // Syntax stx;
     Lambda(const std :: vector<std :: string> &, const Expr &);
+    // Lambda(const std :: vector<std :: string> &, const Syntax &);
     virtual Value eval(Assoc &) override;
 };
 

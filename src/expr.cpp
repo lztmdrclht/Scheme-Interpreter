@@ -16,6 +16,8 @@ ExprBase* Expr :: get() const { return ptr.get(); }
 Let :: Let(const vector<pair<string, Expr>> &vec, const Expr &e) : ExprBase(E_LET), bind(vec), body(e) {}
 
 Lambda :: Lambda(const vector<string> &vec, const Expr &expr) : ExprBase(E_LAMBDA), x(vec), e(expr) {}
+// Lambda :: Lambda(const vector<string> &vec, const Syntax &stx) : ExprBase(E_LAMBDA), x(vec), stx(stx) {}
+
 
 Apply :: Apply(const Expr &expr, const vector<Expr> &vec) : ExprBase(E_APPLY), rator(expr), rand(vec) {}
 

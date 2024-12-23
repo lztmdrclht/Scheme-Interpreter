@@ -24,6 +24,7 @@ void REPL()
         global_env = extend("+", new Closure(x, new Plus(new Var("x"), new Var("y")), global_env), global_env);
         global_env = extend("-", new Closure(x, new Minus(new Var("x"), new Var("y")), global_env), global_env);
         global_env = extend("*", new Closure(x, new Mult(new Var("x"), new Var("y")), global_env), global_env);
+
         #ifndef ONLINE_JUDGE
             std::cout << "scm> ";
         #endif
@@ -39,8 +40,8 @@ void REPL()
         }
         catch (const RuntimeError &RE)
         {
-            // std :: cout << RE.message();
-            std :: cout << "RuntimeError";
+            std :: cout << RE.message();
+            // std :: cout << "RuntimeError";
         }
         puts("");
     }
